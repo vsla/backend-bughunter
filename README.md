@@ -25,3 +25,5 @@
 - O que segui para criar esse server, [guia bem básico](https://dev.to/miku86/nodejs-postgresql-how-to-connect-our-database-to-our-simple-express-server-without-an-orm-10o0)
 
 - [Node postgres ](https://node-postgres.com/) que vai ser para ajudar nas queries
+
+- [Drop tables no postgress](https://makandracards.com/makandra/62111-how-to-drop-all-tables-in-postgresql)
