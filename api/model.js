@@ -35,7 +35,7 @@ const helpers = {
       const query =
         "CREATE TABLE companies (" +
         "name varchar, email varchar, description varchar, " +
-        "cnpj varchar, phone varchar, password varchar" +
+        "cnpj varchar, phone varchar, password varchar, id SERIAL NOT NULL" +
         ")"
       const response = await database.query(query);
       return response
