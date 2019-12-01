@@ -4,6 +4,7 @@ const routes = express.Router();
 const Model = require('../model');
 const companyController = require('../controllers/companyController');
 const projectController = require('../controllers/projectController');
+const hunterController = require('../controllers/hunterController');
 
 // Company
 routes.post('/companies', companyController.create);
@@ -20,6 +21,13 @@ routes.get('/projects/:id', projectController.getOne);
 routes.get('/companies/:companyId/projects', projectController.getByCompany);
 routes.put('/projects/:id', projectController.update);
 routes.delete('/projects/:id', projectController.delete);
+
+// Hunters
+routes.post('/hunters', hunterController.create);
+routes.get('/hunters', hunterController.getAll);
+routes.get('/hunters/:id', hunterController.getOne);
+routes.put('/hunters/:id', hunterController.update);
+routes.delete('/hunters/:id', hunterController.delete);
 
 // Create tables
 routes.get('/create-tables', Model.createTables);
