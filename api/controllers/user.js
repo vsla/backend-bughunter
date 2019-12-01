@@ -1,4 +1,4 @@
-const database = require('./databaseHelper');
+const database = require('../databaseHelper');
 
 const User = {
   async createTable(req,res){
