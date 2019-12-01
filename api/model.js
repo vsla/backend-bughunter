@@ -6,9 +6,12 @@ const Model = {
       let finalResponse = []
       const companies = await helpers.createCompanies()
       const projects = await helpers.createProject()
+      const hunters = await helpers.createHunters()
 
       finalResponse.push(companies)
       finalResponse.push(projects)
+      finalResponse.push(hunters)
+
       return res.send({ response: finalResponse })
     } catch (error) {
       console.log(error)
@@ -35,9 +38,10 @@ const helpers = {
 
       return response
     } catch (error) {
-      return error
+      return 'Companies is created already'
     }
   },
+
   async createProject() {
     try {
       const query = `
@@ -60,9 +64,30 @@ const helpers = {
       const response = await database.query(query);
       return response
     } catch (error) {
-      return error
+      return 'Projects is created already'
     }
-  }
+  },
+
+  async createHunters() {
+    try {
+      const query = `
+        CREATE TABLE hunters ( 
+          name varchar NOT NULL, 
+          email varchar NOT NULL,  
+          cpf varchar NOT NULL, 
+          phone varchar NOT NULL, 
+          password varchar NOT NULL, 
+          id SERIAL PRIMARY KEY NOT NULL
+        )
+      `
+
+      const response = await database.query(query);
+
+      return response
+    } catch (error) {
+      return 'Hunters is created already'
+    }
+  },
 }
 
 module.exports = Model;
