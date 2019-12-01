@@ -73,7 +73,6 @@ const ProjectController = {
         link2 = $5, category = $6, status = $7, tableAmount = $8, shortDescription = $9
         where id = $10 RETURNING *
       `
-      console.log(values[9])
 
       const response = await database.queryValues(query, values);
       console.log(response)
