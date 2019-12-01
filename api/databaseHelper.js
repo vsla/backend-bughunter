@@ -20,6 +20,21 @@ function query(text) {
   });
 }
 
+function queryValues(text, values) {
+  return new Promise((resolve, reject) => {
+    pool
+      .query(text, values)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        console.log(err)
+        reject(err);
+      });
+  });
+}
+
 module.exports = {
-  query
+  query,
+  queryValues
 };

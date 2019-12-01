@@ -3,10 +3,13 @@ const database = require('../databaseHelper');
 const CompanyController = {
   async create(req, res) {
     try {
-      const { name, description, phone, password, email, cnpj } = req.body
-      const query =
-        "INSERT INTO companies(name, description, phone, password, email, cnpj) VALUES($1, $2, $3, $4, $5, $6) RETURNING *"
-      const values = [name, description, phone, password, email, cnpj]
+      const { name, phone, password, email, cpf } = req.body
+      const query =`
+        INSERT INTO hunters
+          (name, phone, password, email, cpf) 
+          VALUES($1, $2, $3, $4, $5) RETURNING *
+      `
+      const values = [name, phone, password, email, cpf]
       const response = await database.queryValues(query, values);
       return res.send(response.rows[0])
     } catch (error) {
@@ -16,7 +19,7 @@ const CompanyController = {
   async getAll(req, res) {
     try {
       const query =
-        "SELECT * FROM companies"
+        "SELECT * FROM hunters"
 
       const response = await database.query(query);
       return res.send(response.rows)
@@ -28,7 +31,7 @@ const CompanyController = {
     try {
       const { id } = req.params
       const query =
-        "SELECT * FROM companies where id = $1"
+        "SELECT * FROM hunters where id = $1"
       const values = [id]
 
       const response = await database.queryValues(query, values);
@@ -40,15 +43,15 @@ const CompanyController = {
   async update(req, res) {
     try {
       const { id } = req.params
-      const { name, description, phone, password, email, cnpj } = req.body
+      const { name, phone, password, email, cpf } = req.body
 
       const query =
         `
-        UPDATE companies 
-        SET name = $1, description = $2, phone = $3, password = $4, email = $5, cnpj = $6 
-        where id = $7 RETURNING *
+        UPDATE hunters 
+        SET name = $1, phone = $2, password = $3, email = $4, cpf = $5
+        where id = $6 RETURNING *
       `
-      const values = [name, description, phone, password, email, cnpj, id]
+      const values = [name, phone, password, email, cpf, id]
 
       const response = await database.queryValues(query, values);
       return res.send(response.rows[0])
@@ -62,7 +65,7 @@ const CompanyController = {
 
       const query =
         `
-        DELETE FROM companies 
+        DELETE FROM hunters 
         where id = $1
       `
 
