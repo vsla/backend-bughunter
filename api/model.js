@@ -33,8 +33,9 @@ const helpers = {
   async createCompanies() {
     try {
       const query =
-        "CREATE TABLE companies " +
-        "(name varchar, email varchar, description varchar, cnpj varchar, phone varchar" +
+        "CREATE TABLE companies (" +
+        "name varchar, email varchar, description varchar, " +
+        "cnpj varchar, phone varchar, password varchar" +
         ")"
       const response = await database.query(query);
       return response
