@@ -3,12 +3,10 @@ const database = require('../databaseHelper');
 const CompanyController = {
   async create(req, res) {
     try {
-      console.log(req.body)
       const { name, description, phone, password, email, cnpj } = req.body
       const query =
         "INSERT INTO companies(name, description, phone, password, email, cnpj) VALUES($1, $2, $3, $4, $5, $6) RETURNING *"
       const values = [name, description, phone, password, email, cnpj]
-      console.log(query, values)
       const response = await database.queryValues(query, values);
       return res.send(response.rows[0])
     } catch (error) {
