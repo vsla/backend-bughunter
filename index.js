@@ -1,21 +1,24 @@
 const express = require('express');
 
+const rebootConfig = require('./api/config/config')
 
-// new: import User
-const User = require('./api/controllers/user');  
-const Model = require('./api/model');  
+const routes = require('./api/config/routes')
 
+const bodyParser = require('body-parser')
 
 const app = express();
 const PORT = 8080;
 
-app.get('/', (req, res) => {
-  res.send({ message: 'endpoint working' });
-});
+app.use(express.json());
+// Routes on config
+app.use('/', routes);
 
-app.get('/users', User.createTable);
-app.get('/create-tables', Model.createTables);
+// Enable to drop all tables
+const reboot = false
 
 app.listen(PORT, () => {
+  if (reboot) {
+    rebootConfig.migrate()
+  }
   console.log(`Server running at: http://localhost:${PORT}/`);
 });
