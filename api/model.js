@@ -7,10 +7,12 @@ const Model = {
       const companies = await helpers.createCompanies()
       const projects = await helpers.createProject()
       const hunters = await helpers.createHunters()
+      const bugRequest = await helpers.createBugRequest()
 
       finalResponse.push(companies)
       finalResponse.push(projects)
       finalResponse.push(hunters)
+      finalResponse.push(bugRequest)
 
       return res.send({ response: finalResponse })
     } catch (error) {
@@ -86,6 +88,33 @@ const helpers = {
       return response
     } catch (error) {
       return 'Hunters is created already'
+    }
+  },
+
+  async createBugRequest() {
+    try {
+      const query = `
+      CREATE TABLE bugRequests ( 
+        title varchar, 
+        category varchar, 
+        repository_link varchar, 
+        live_link varchar, 
+        status varchar,
+        description varchar, 
+        value varchar,
+        project_id integer, 
+        hunter_id integer, 
+        id SERIAL NOT NULL, 
+        PRIMARY KEY (id),
+        FOREIGN KEY (hunter_id) REFERENCES hunters (id),
+        FOREIGN KEY (project_id) REFERENCES projects (id)
+      )
+      `
+
+      const response = await database.query(query);
+      return response
+    } catch (error) {
+      return error
     }
   },
 }

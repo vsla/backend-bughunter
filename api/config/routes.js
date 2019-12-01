@@ -5,6 +5,7 @@ const Model = require('../model');
 const companyController = require('../controllers/companyController');
 const projectController = require('../controllers/projectController');
 const hunterController = require('../controllers/hunterController');
+const bugRequestController = require('../controllers/bugRequestController');
 
 // Company
 routes.post('/companies', companyController.create);
@@ -28,6 +29,15 @@ routes.get('/hunters', hunterController.getAll);
 routes.get('/hunters/:id', hunterController.getOne);
 routes.put('/hunters/:id', hunterController.update);
 routes.delete('/hunters/:id', hunterController.delete);
+
+// Projects
+routes.post('/bug_requests', bugRequestController.create);
+routes.get('/bug_requests', bugRequestController.getAll);
+routes.get('/bug_requests/:id', bugRequestController.getOne);
+routes.get('/projects/:id/bug_requests', bugRequestController.getByProject);
+routes.get('/hunters/:id/bug_requests', bugRequestController.getByHunter);
+routes.put('/bug_requests/:id', bugRequestController.update);
+routes.delete('/bug_requests/:id', bugRequestController.delete);
 
 // Create tables
 routes.get('/create-tables', Model.createTables);
