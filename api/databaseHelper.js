@@ -28,6 +28,7 @@ function queryValues(text, values) {
         resolve(res);
       })
       .catch((err) => {
+        console.log(err)
         reject(err);
       });
   });

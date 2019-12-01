@@ -4,8 +4,6 @@ const rebootConfig = require('./api/config/config')
 
 const routes = require('./api/config/routes')
 
-const bodyParser = require('body-parser')
-
 const app = express();
 const PORT = 8080;
 
