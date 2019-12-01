@@ -8,11 +8,13 @@ const Model = {
       const projects = await helpers.createProject()
       const hunters = await helpers.createHunters()
       const bugRequest = await helpers.createBugRequest()
+      const admins = await helpers.createAdmins()
 
       finalResponse.push(companies)
       finalResponse.push(projects)
       finalResponse.push(hunters)
       finalResponse.push(bugRequest)
+      finalResponse.push(admins)
 
       return res.send({ response: finalResponse })
     } catch (error) {
@@ -27,9 +29,9 @@ const helpers = {
       const query = `
         CREATE TABLE companies ( 
           name varchar, 
-          email varchar, 
+          email UNIQUE varchar, 
           description varchar,  
-          cnpj varchar, 
+          cnpj UNIQUE varchar, 
           phone varchar, 
           password varchar, 
           id SERIAL PRIMARY KEY NOT NULL
@@ -75,8 +77,8 @@ const helpers = {
       const query = `
         CREATE TABLE hunters ( 
           name varchar NOT NULL, 
-          email varchar NOT NULL,  
-          cpf varchar NOT NULL, 
+          email varchar UNIQUE NOT NULL,  
+          cpf varchar UNIQUE NOT NULL, 
           phone varchar NOT NULL, 
           password varchar NOT NULL, 
           id SERIAL PRIMARY KEY NOT NULL
@@ -112,6 +114,25 @@ const helpers = {
       `
 
       const response = await database.query(query);
+      return response
+    } catch (error) {
+      return 'BugRequest is created already'
+    }
+  },
+
+  async createAdmins() {
+    try {
+      const query = `
+        CREATE TABLE admins ( 
+          name varchar NOT NULL, 
+          email varchar UNIQUE NOT NULL,
+          password varchar NOT NULL, 
+          id SERIAL PRIMARY KEY NOT NULL
+        )
+      `
+
+      const response = await database.query(query);
+
       return response
     } catch (error) {
       return error
