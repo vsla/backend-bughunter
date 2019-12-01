@@ -6,6 +6,7 @@ const companyController = require('../controllers/companyController');
 const projectController = require('../controllers/projectController');
 const hunterController = require('../controllers/hunterController');
 const bugRequestController = require('../controllers/bugRequestController');
+const adminController = require('../controllers/adminController');
 
 // Company
 routes.post('/companies', companyController.create);
@@ -38,6 +39,13 @@ routes.get('/projects/:id/bug_requests', bugRequestController.getByProject);
 routes.get('/hunters/:id/bug_requests', bugRequestController.getByHunter);
 routes.put('/bug_requests/:id', bugRequestController.update);
 routes.delete('/bug_requests/:id', bugRequestController.delete);
+
+// Admins
+routes.post('/admins', adminController.create);
+routes.get('/admins', adminController.getAll);
+routes.get('/admins/:id', adminController.getOne);
+routes.put('/admins/:id', adminController.update);
+routes.delete('/admins/:id', adminController.delete);
 
 // Create tables
 routes.get('/create-tables', Model.createTables);
