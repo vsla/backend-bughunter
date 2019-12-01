@@ -17,7 +17,7 @@ routes.delete('/companies/:id', companyController.delete);
 routes.post('/projects', projectController.create);
 routes.get('/projects', projectController.getAll);
 routes.get('/projects/:id', projectController.getOne);
-routes.get('/companies/:companyId/projects/:id', projectController.getByCompany);
+routes.get('/companies/:companyId/projects', projectController.getByCompany);
 routes.put('/projects/:id', projectController.update);
 routes.delete('/projects/:id', projectController.delete);
 

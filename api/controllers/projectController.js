@@ -47,10 +47,10 @@ const ProjectController = {
 
   async getByCompany(req, res) {
     try {
-      const { companyId, id } = req.params
+      const { companyId } = req.params
       const query =
-        "SELECT * FROM projects where id = $1 and company_id = $2"
-      const values = [id, companyId]
+        "SELECT * FROM projects where company_id = $1"
+      const values = [companyId]
 
       const response = await database.queryValues(query, values);
       return res.send(response.rows)
@@ -73,10 +73,10 @@ const ProjectController = {
         link2 = $5, category = $6, status = $7, tableAmount = $8, shortDescription = $9
         where id = $10 RETURNING *
       `
-      console.log(query)
-
+      console.log(values[9])
 
       const response = await database.queryValues(query, values);
+      console.log(response)
       return res.send(response.rows[0])
     } catch (error) {
       return res.send(error)
