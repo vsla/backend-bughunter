@@ -1,0 +1,4 @@
+CREATE TRIGGER CheckValue
+    BEFORE INSERT ON bugrequests
+    FOR EACH ROW
+    EXECUTE PROCEDURE CheckValue();
