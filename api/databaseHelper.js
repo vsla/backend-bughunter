@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 // your credentials
-DATABASE_URL = 'postgres://postgres:postgres@127.0.0.1:5432/bugbackend';
+DATABASE_URL = 'postgres://postgres:postgres@127.0.0.1:5432/bugbackend-pg';
 
 const pool = new Pool({
   connectionString: DATABASE_URL
