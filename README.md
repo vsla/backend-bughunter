@@ -6,8 +6,8 @@
 
 ```
   sudo -iu postgres
-  createdb -O postgres node-postgres-pg
-  psql -d node-postgres-pg
+  createdb -O postgres bugbackend
+  psql -d nbugbackend
 ```
 
 - Colocar suas credenciais do postgress no database.js dentro de api -- postgres://[usuario]:[senha]@127.0.0.1:5432/bugbackend
