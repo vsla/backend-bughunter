@@ -29,9 +29,9 @@ const helpers = {
       const query = `
         CREATE TABLE companies ( 
           name varchar, 
-          email UNIQUE varchar, 
+          email varchar UNIQUE, 
           description varchar,  
-          cnpj UNIQUE varchar, 
+          cnpj varchar UNIQUE, 
           phone varchar, 
           password varchar, 
           id SERIAL PRIMARY KEY NOT NULL
@@ -42,7 +42,7 @@ const helpers = {
 
       return response
     } catch (error) {
-      return 'Companies is created already'
+      return error
     }
   },
 
@@ -81,6 +81,7 @@ const helpers = {
           cpf varchar UNIQUE NOT NULL, 
           phone varchar NOT NULL, 
           password varchar NOT NULL, 
+          authentication_token varchar,
           id SERIAL PRIMARY KEY NOT NULL
         )
       `
@@ -106,6 +107,7 @@ const helpers = {
         value varchar,
         project_id integer, 
         hunter_id integer, 
+        authentication_token varchar,
         id SERIAL NOT NULL, 
         PRIMARY KEY (id),
         FOREIGN KEY (hunter_id) REFERENCES hunters (id),
@@ -125,7 +127,9 @@ const helpers = {
       const query = `
         CREATE TABLE admins ( 
           name varchar NOT NULL, 
+          authentication_token varchar,
           email varchar UNIQUE NOT NULL,
+          status varchar,
           password varchar NOT NULL, 
           id SERIAL PRIMARY KEY NOT NULL
         )
@@ -135,7 +139,7 @@ const helpers = {
 
       return response
     } catch (error) {
-      return error
+      return 'Admins is created already'
     }
   },
 }

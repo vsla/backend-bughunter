@@ -39,7 +39,7 @@ const ProjectController = {
       const values = [id]
 
       const response = await database.queryValues(query, values);
-      return res.send(response.rows)
+      return res.send(response.rows[0])
     } catch (error) {
       return res.send({ response: 'not found' })
     }

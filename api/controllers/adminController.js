@@ -76,6 +76,19 @@ const CompanyController = {
     } catch (error) {
       return res.send(error)
     }
+  },
+  async auth(req, res) {
+    try {
+      const { email, password } = req.body
+      const query =
+        "SELECT * FROM admins where email = $1 and password = $2 "
+      const values = [email, password]
+
+      const response = await database.queryValues(query, values);
+      return res.send(response.rows[0])
+    } catch (error) {
+      return res.send({ response: 'not found' })
+    }
   }
 };
 

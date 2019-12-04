@@ -14,7 +14,7 @@ routes.get('/companies', companyController.getAll);
 routes.get('/companies/:id', companyController.getOne);
 routes.patch('/companies/:id', companyController.update);
 routes.delete('/companies/:id', companyController.delete);
-
+routes.post('/sessions/companies', companyController.auth);
 
 // Projects
 routes.post('/projects', projectController.create);
@@ -30,6 +30,7 @@ routes.get('/hunters', hunterController.getAll);
 routes.get('/hunters/:id', hunterController.getOne);
 routes.put('/hunters/:id', hunterController.update);
 routes.delete('/hunters/:id', hunterController.delete);
+routes.post('/sessions/bughunter', hunterController.auth);
 
 // Projects
 routes.post('/bug_requests', bugRequestController.create);
@@ -46,6 +47,7 @@ routes.get('/admins', adminController.getAll);
 routes.get('/admins/:id', adminController.getOne);
 routes.put('/admins/:id', adminController.update);
 routes.delete('/admins/:id', adminController.delete);
+routes.post('/sessions/admin', adminController.auth);
 
 // Create tables
 routes.get('/create-tables', Model.createTables);

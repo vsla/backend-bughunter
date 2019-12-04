@@ -6,8 +6,8 @@ const CompanyController = {
       const { name, phone, password, email, cpf } = req.body
       const query =`
         INSERT INTO hunters
-          (name, phone, password, email, cpf) 
-          VALUES($1, $2, $3, $4, $5) RETURNING *
+          (name, phone, password, email, cpf, authentication_token) 
+          VALUES($1, $2, $3, $4, $5, 123) RETURNING *
       `
       const values = [name, phone, password, email, cpf]
       const response = await database.queryValues(query, values);
@@ -75,6 +75,19 @@ const CompanyController = {
       return res.send({ response: 'Deletado com sucesso' })
     } catch (error) {
       return res.send(error)
+    }
+  },
+  async auth(req, res) {
+    try {
+      const { email, password } = req.body
+      const query =
+        "SELECT * FROM hunters where email = $1 and password = $2 "
+      const values = [email, password]
+
+      const response = await database.queryValues(query, values);
+      return res.send(response.rows[0])
+    } catch (error) {
+      return res.send({ response: 'not found' })
     }
   }
 };

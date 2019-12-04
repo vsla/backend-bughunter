@@ -21,8 +21,13 @@ const BugRequestController = {
 
   async getAll(req, res) {
     try {
-      const query =
-        "SELECT * FROM bugRequests"
+      const query = `
+        SELECT BR.*, H.name as name_hunter, projects.name as project_name
+        FROM projects
+        INNER JOIN bugRequests as BR on projects.id = BR.project_id
+        INNER JOIN hunters as H on BR.hunter_id= H.id
+
+      `
 
       const response = await database.query(query);
       return res.send(response.rows)
@@ -62,8 +67,15 @@ const BugRequestController = {
   async getByProject(req, res) {
     try {
       const { id } = req.params
-      const query =
-        "SELECT * FROM bugRequests where project_id = $1"
+      const query = `
+        SELECT bugRequests.*, hunters.name, 
+        FROM projects
+        INNER JOIN bugRequests on projects.id = bugRequests.project_id
+        INNER JOIN hunters on bugRequests.hunter_id= hunters.id
+        WHERE projects.id = $1
+      
+      `
+
       const values = [id]
 
       const response = await database.queryValues(query, values);
@@ -113,7 +125,8 @@ const BugRequestController = {
     } catch (error) {
       return res.send(error)
     }
-  }
+  },
+
 };
 
 module.exports = BugRequestController;
